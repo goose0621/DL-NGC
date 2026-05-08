@@ -25,18 +25,66 @@ Before starting, read and watch the following materials. They are the foundation
 ## Table of Contents / 目次
 
 1. [Environment Setup / 環境構築](#1-environment-setup--環境構築)
+   - 1.1 Installing Jupyter / Jupyterのインストール
+   - 1.2 Installing PyTorch / PyTorchのインストール
+   - 1.3 Installing Weights & Biases
+   - 1.4 Hiding Your API Key / APIキーの隠し方
 2. [Dataset: MNIST Download & Visualization / データセット](#2-dataset-mnist-download--visualization--データセット)
 3. [Building LeNet-5 by Hand / LeNet-5の手書き実装](#3-building-lenet-5-by-hand--lenet-5の手書き実装)
 4. [Training Loop / 訓練ループ](#4-training-loop--訓練ループ)
 5. [Weights & Biases Integration / W&B接続](#5-weights--biases-integration--wb接続)
 6. [Controlled Experiments / 対照実験](#6-controlled-experiments--対照実験)
 7. [Goal Checklist / 目標チェックリスト](#7-goal-checklist--目標チェックリスト)
+8. [Appendix: Using Jupyter in VS Code / 付録：VS CodeでJupyterを使う](#appendix-using-jupyter-in-vs-code--付録vs-codeでjupyterを使う)
 
 ---
 
 ## 1. Environment Setup / 環境構築
 
-### 1.1 Installing PyTorch / PyTorchのインストール
+### 1.1 Installing Jupyter / Jupyterのインストール
+
+Jupyter is the recommended environment for this lab. It lets you run code in cells and see results immediately, which makes debugging and experimentation much easier.  
+本実験ではJupyterを推奨環境とする。セル単位でコードを実行して結果をすぐ確認できるため、デバッグや実験に適している。
+
+```bash
+# Install JupyterLab (recommended) / JupyterLabをインストール（推奨）
+pip install jupyterlab
+
+# Or classic Jupyter Notebook / または従来のJupyter Notebook
+pip install notebook
+```
+
+**Starting Jupyter / 起動方法:**
+
+```bash
+# JupyterLab
+jupyter lab
+
+# Classic Notebook
+jupyter notebook
+```
+
+A browser window will open automatically. Navigate to your project folder and create a new `.ipynb` file.  
+ブラウザが自動的に開く。プロジェクトフォルダに移動して新しい `.ipynb` ファイルを作成する。
+
+**Essential operations / 基本操作:**
+
+| Action / 操作 | Shortcut / ショートカット | Notes / 備考 |
+|--------------|--------------------------|-------------|
+| Run current cell / 現在のセルを実行 | `Shift + Enter` | Moves to next cell / 次のセルに移動 |
+| Run cell, stay / 実行して留まる | `Ctrl + Enter` | Stays on same cell / 同じセルに留まる |
+| Add cell below / 下にセルを追加 | `B` (command mode) | Press `Esc` first to enter command mode |
+| Add cell above / 上にセルを追加 | `A` (command mode) | — |
+| Delete cell / セルを削除 | `DD` (command mode) | Press `D` twice / Dを2回押す |
+| Restart kernel / カーネルを再起動 | Kernel menu → Restart | Clears all variables / 全変数がリセットされる |
+| Interrupt kernel / カーネルを中断 | `I, I` (command mode) | Stops running cell / 実行中のセルを停止 |
+
+> **Important / 重要:** Restarting the kernel clears all variables in memory. If you want to reset the model without restarting, simply reinstantiate it in a new cell — no kernel restart needed.  
+> カーネルを再起動するとメモリ上の全変数がクリアされる。モデルだけリセットしたい場合はカーネル再起動は不要で、新しいセルで再インスタンス化するだけでよい。
+
+---
+
+### 1.2 Installing PyTorch / PyTorchのインストール
 
 Confirm Python >= 3.9, then install according to your hardware.  
 Python >= 3.9 を確認してから、ハードウェアに合わせてインストールする。
@@ -59,6 +107,38 @@ pip install wandb python-dotenv
 
 After installation, create an account at [wandb.ai](https://wandb.ai) and obtain your API Key from Settings.  
 インストール後、wandb.ai でアカウントを作成し、SettingsページでAPIキーを取得する。
+
+### 1.3 Hiding Your API Key / APIキーの隠し方
+
+Never hardcode your API Key — especially when sharing code with students via git.  
+APIキーをコードに直接書かないこと。特にgitで学生に共有する場合は必ず以下の手順を取る。
+
+**Steps / 手順:**
+
+1. Create `.env` in the project root / プロジェクトルートに `.env` を作成する
+   ```
+   WANDB_API_KEY=your_key_here
+   ```
+
+2. Add `.env` to `.gitignore` / `.gitignore` に追加する
+   ```
+   .env
+   ```
+
+3. Provide `.env.example` as a template for students / 学生向けにテンプレートを用意する
+   ```
+   WANDB_API_KEY=your_key_here
+   ```
+
+4. Load the key in code / コード内で読み込む
+   ```python
+   from dotenv import load_dotenv
+   import os
+   load_dotenv()
+   # wandb automatically reads WANDB_API_KEY from environment
+   ```
+
+---
 
 ## 2. Dataset: MNIST Download & Visualization / データセット
 
@@ -97,7 +177,52 @@ print(images.shape)  # torch.Size([64, 1, 28, 28])
 
 ## 3. Building LeNet-5 by Hand / LeNet-5の手書き実装
 
-### 3.1 Network Architecture / ネットワーク構造
+### 3.1 Dimension Calculation Principles / 次元計算の原理
+
+Before building the network, you need to be able to compute output sizes by hand. Errors in the flatten dimension are one of the most common bugs when building CNNs.  
+ネットワークを構築する前に、出力サイズを手計算できる必要がある。flatten次元のエラーはCNN構築で最もよくあるバグの一つ。
+
+**Reference / 参考資料:**
+- [CS231n — Convolutional Neural Networks](https://cs231n.github.io/convolutional-networks/) — clear explanation with diagrams / 図解付きの明快な説明
+- [PyTorch Conv2d documentation](https://pytorch.org/docs/stable/generated/torch.nn.Conv2d.html) — authoritative formula reference / 公式の権威ある参照
+
+**Output size formula / 出力サイズの公式:**
+
+For a convolution layer / 畳み込み層：
+
+```
+Output size = floor((W - K + 2P) / S) + 1
+
+W = input size / 入力サイズ
+K = kernel size / カーネルサイズ
+P = padding (default 0) / パディング（デフォルト0）
+S = stride (default 1) / ストライド（デフォルト1）
+```
+
+For a pooling layer / プーリング層：
+
+```
+Output size = floor((W - K) / S) + 1
+
+(for MaxPool2d(2,2): K=2, S=2)
+```
+
+**Worked example with this network / このネットワークでの計算例:**
+
+| Layer / 層 | Formula / 計算式 | Result / 結果 |
+|-----------|----------------|--------------|
+| Conv1 (K=3, P=0, S=1) | floor((28 - 3 + 0) / 1) + 1 | **26** |
+| Pool1 (K=2, S=2) | floor((26 - 2) / 2) + 1 | **13** |
+| Conv2 (K=3, P=0, S=1) | floor((13 - 3 + 0) / 1) + 1 | **11** |
+| Pool2 (K=2, S=2) | floor((11 - 2) / 2) + 1 | **5** |
+| Flatten | 20 channels × 5 × 5 | **500** |
+
+> **Rule of thumb / 経験則:** Every time you change kernel size, padding, or stride, recompute all downstream dimensions. Never guess the flatten dimension — calculate it.  
+> カーネルサイズ・パディング・ストライドを変更するたびに、それ以降の全次元を再計算する。flatten次元は絶対に推測しない。必ず計算する。
+
+---
+
+### 3.2 Network Architecture / ネットワーク構造
 
 This experiment uses 28×28 input (no resize) with 3×3 convolution kernels.  
 本実験では28×28入力（リサイズなし）と3×3畳み込みカーネルを使用する。
@@ -124,7 +249,7 @@ This experiment uses 28×28 input (no resize) with 3×3 convolution kernels.
 > **Key point / 重要:** The flatten dimension = channels × height × width. Recompute this number every time you change convolution parameters.  
 > flatten次元 = チャンネル数 × 高さ × 幅。畳み込みパラメータを変更するたびに必ず再計算する。
 
-### 3.2 Correct BatchNorm Usage / BatchNormの正しい書き方
+### 3.3 Correct BatchNorm Usage / BatchNormの正しい書き方
 
 BatchNorm **must** be defined in `__init__`, not created on-the-fly inside `forward`. Creating it in `forward` instantiates a new untrained layer every call, so its statistics are never learned.  
 BatchNormは `__init__` 内で定義しなければならない。`forward` 内で毎回生成すると、未訓練の新しい層が都度作られ、統計量が一切学習されない。
@@ -152,14 +277,14 @@ c1 = F.relu(c1)
 s2 = F.max_pool2d(c1, 2)
 ```
 
-### 3.3 Activation Function Choice / 活性化関数の選択
+### 3.4 Activation Function Choice / 活性化関数の選択
 
 - **Convolutional layers / 畳み込み層:** Use `F.relu`. Sigmoid causes vanishing gradients in deeper networks and is not recommended.  
   Sigmoidは深層ネットワークで勾配消失を引き起こすため非推奨。
 - **Output layer FC3:** No activation function. Output raw logits directly — `CrossEntropyLoss` handles the rest internally.  
   活性化関数なし。生のlogitsをそのまま出力し、`CrossEntropyLoss` が内部で処理する。
 
-### 3.4 Layers That Need `__init__` vs. Functional Calls
+### 3.5 Layers That Need `__init__` vs. Functional Calls
 
 | Needs `__init__` / 要定義 | Use as function / 関数として使用 |
 |--------------------------|-------------------------------|
@@ -333,3 +458,34 @@ All four runs should be logged to the same W&B `project`. Give each run a descri
 
 ---
 
+*goose@NGC Lab.*
+
+---
+
+## Appendix: Using Jupyter in VS Code / 付録：VS CodeでJupyterを使う
+
+VS Code provides a full Jupyter experience without opening a browser. This is useful if you prefer staying in one editor for both coding and experimentation.  
+VS CodeではブラウザなしでJupyterをフル活用できる。コーディングと実験を同じエディタで完結させたい場合に便利。
+
+**Setup / セットアップ:**
+
+1. Install the **Python** extension and **Jupyter** extension from the VS Code Extensions marketplace  
+   VS Code拡張機能マーケットプレイスから **Python** 拡張機能と **Jupyter** 拡張機能をインストールする
+
+2. Open or create a `.ipynb` file — VS Code will automatically open it in notebook view  
+   `.ipynb` ファイルを開くか新規作成する。VS Codeが自動的にノートブックビューで開く
+
+3. Select the kernel in the top-right corner — choose the virtual environment where PyTorch is installed  
+   右上のカーネル選択でPyTorchをインストールした仮想環境を選ぶ
+
+**Key differences from browser Jupyter / ブラウザ版との主な違い:**
+
+| Feature / 機能 | Browser Jupyter / ブラウザ版 | VS Code / VS Code版 |
+|---------------|-----------------------------|--------------------|
+| Interface / インターフェース | Browser tab / ブラウザタブ | Editor panel / エディタパネル |
+| Git integration / Git連携 | Manual / 手動 | Built-in Source Control / 組み込みSource Control |
+| Autocomplete / 自動補完 | Basic / 基本的 | Full IntelliSense |
+| Debugger / デバッガ | Limited / 限定的 | Full debugger support / フルデバッガ対応 |
+
+> The cell shortcuts (`Shift+Enter`, `Ctrl+Enter`, `B`, `A`, `DD`) are the same in VS Code as in browser Jupyter.  
+> セルのショートカット（`Shift+Enter`、`Ctrl+Enter`、`B`、`A`、`DD`）はブラウザ版と同じ。
