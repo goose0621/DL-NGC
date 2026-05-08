@@ -1,0 +1,59 @@
+_wandb:
+    value:
+        cli_version: 0.26.1
+        e:
+            w4oz0byzsve7514dx9q2x6icxtgfvbox:
+                codePath: /home/goose/DL/Task1/DL_task1.ipynb
+                codePathLocal: DL_task1.ipynb
+                cpu_count: 14
+                cpu_count_logical: 20
+                cudaVersion: "13.2"
+                disk:
+                    /:
+                        total: "1023670538240"
+                        used: "137445883904"
+                email: saisanka0621@gmail.com
+                executable: /home/goose/DL/.venv/bin/python
+                git:
+                    commit: 4aa0e134ce231757da1ec78896b78762b04305ec
+                    remote: git@github.com:goose0621/DL-NGC.git
+                gpu: NVIDIA GeForce RTX 2050
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Ampere
+                      cudaCores: 2048
+                      memoryTotal: "4294967296"
+                      name: NVIDIA GeForce RTX 2050
+                      uuid: GPU-de5ff6bc-aebb-0c1b-4570-2424e2f78232
+                host: cachyos-x8664
+                memory:
+                    total: "16367149056"
+                os: Linux-7.0.3-1-cachyos-x86_64-with-glibc2.43
+                program: /home/goose/DL/Task1/DL_task1.ipynb
+                python: CPython 3.14.4
+                root: /home/goose/DL/Task1
+                startedAt: "2026-05-08T04:41:14.477620Z"
+                writerId: w4oz0byzsve7514dx9q2x6icxtgfvbox
+        m: []
+        python_version: 3.14.4
+        t:
+            "1":
+                - 1
+                - 41
+            "2":
+                - 1
+                - 41
+            "3":
+                - 2
+                - 13
+                - 16
+            "4": 3.14.4
+            "5": 0.26.1
+            "8":
+                - 1
+            "12": 0.26.1
+            "13": linux-x86_64
+epoch:
+    value: 50
+lr:
+    value: 1e-05
