@@ -4,6 +4,42 @@
 
 ---
 
+## Task Overview / タスク概要
+
+In this lab you will build a convolutional neural network (LeNet-5) from scratch using PyTorch and train it on the MNIST handwritten digit dataset.  
+この実験では PyTorch を使って畳み込みニューラルネットワーク（LeNet-5）をゼロから構築し、MNIST 手書き数字データセットで訓練する。
+
+By the end of this lab you will have:  
+実験を終えると、自然と以下のものが手元に残る：
+
+- A working LeNet-5 implementation that reaches >98% test accuracy / テスト精度98%以上を達成する動作する LeNet-5 の実装
+- W&B comparison curves from four controlled experiments / 4つの対照実験の W&B 比較曲線
+- First-hand observations of how learning rate and BatchNorm affect training / 学習率と BatchNorm が訓練に与える影響の直接的な観察
+
+---
+
+## Core Questions / コア問題
+
+Read these before starting. Everything in this guidebook exists to help you answer them.  
+作業を始める前に読むこと。このガイドブックの全内容はこれらの問いに答えるために存在する。
+
+1. **Learning rate / 学習率** — How does the magnitude of the learning rate affect the model's ability to find a good solution? Why is there a "just right" range, and what happens on either side of it?  
+   学習率の大きさはモデルが良い解を見つける能力にどう影響するか？「ちょうど良い」範囲が存在するのはなぜか？その両端では何が起きるか？
+
+2. **BatchNorm** — What problem does BatchNorm solve? In what specific way does training degrade when it is removed?  
+   BatchNorm はどんな問題を解決するか？それを取り除くと、訓練はどのような形で悪化するか？
+
+3. **Layer dimensions / 層の次元数** — When building a neural network, how do you decide the dimensionality of each layer? What are the trade-offs of making a layer wider or narrower?  
+   ニューラルネットワークを構築する際、各層の次元数はどのように決めるか？層を広くまたは狭くすることのトレードオフは何か？
+
+4. **Loss curves / 損失曲線** — Does a decreasing training loss mean the model is improving? What does the gap between train loss and val loss tell you?  
+   訓練 loss の低下はモデルが改善していることを意味するか？train loss と val loss の差は何を示しているか？
+
+5. **Loss function / 損失関数** — Why is CrossEntropyLoss used for classification instead of MSELoss? What goes wrong if you use the wrong one?  
+   分類タスクに MSELoss ではなく CrossEntropyLoss を使うのはなぜか？間違ったものを使うと何が起きるか？
+
+---
+
 ## References / 参考文献
 
 Before starting, read and watch the following materials. They are the foundation this guidebook is built on.  
@@ -24,6 +60,7 @@ Before starting, read and watch the following materials. They are the foundation
 
 ## Table of Contents / 目次
 
+0. [Core Questions / コア問題](#core-questions--コア問題)
 1. [Environment Setup / 環境構築](#1-environment-setup--環境構築)
    - 1.1 Installing Jupyter / Jupyterのインストール
    - 1.2 Installing PyTorch / PyTorchのインストール
@@ -102,7 +139,7 @@ pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
 ### 1.2 Installing Weights & Biases
 
 ```bash
-pip install wandb python-dotenv
+pip install wandb
 ```
 
 After installation, create an account at [wandb.ai](https://wandb.ai) and obtain your API Key from Settings.  
@@ -115,27 +152,34 @@ APIキーをコードに直接書かないこと。特にgitで学生に共有�
 
 **Steps / 手順:**
 
-1. Create `.env` in the project root / プロジェクトルートに `.env` を作成する
-   ```
-   WANDB_API_KEY=your_key_here
-   ```
-
-2. Add `.env` to `.gitignore` / `.gitignore` に追加する
-   ```
-   .env
+1. Create `config.json` in the project root / プロジェクトルートに `config.json` を作成する
+   ```json
+   {
+       "WANDB_API_KEY": "your_key_here"
+   }
    ```
 
-3. Provide `.env.example` as a template for students / 学生向けにテンプレートを用意する
+2. Add `config.json` to `.gitignore` / `.gitignore` に追加する
    ```
-   WANDB_API_KEY=your_key_here
+   config.json
+   ```
+
+3. Provide `config.example.json` as a template for students / 学生向けにテンプレートを用意する
+   ```json
+   {
+       "WANDB_API_KEY": "your_key_here"
+   }
    ```
 
 4. Load the key in code / コード内で読み込む
    ```python
-   from dotenv import load_dotenv
-   import os
-   load_dotenv()
-   # wandb automatically reads WANDB_API_KEY from environment
+   import json
+   import wandb
+
+   with open('config.json', 'r') as f:
+       config = json.load(f)
+
+   wandb.login(key=config['WANDB_API_KEY'])
    ```
 
 ---
@@ -447,7 +491,22 @@ All four runs should be logged to the same W&B `project`. Give each run a descri
 
 ---
 
-## 7. Goal Checklist / 目標チェックリスト
+## 7. Answers to Core Questions / コア問題への回答
+
+After completing all experiments, write your answers here in your own words. There are no model answers — what matters is that your answer is grounded in what you actually observed in the W&B curves.  
+全実験完了後、自分の言葉で答えを書くこと。模範解答はない。重要なのは、W&B 曲線で実際に観察したことに基づいた答えであること。
+
+| Question / 問い | Your Answer / あなたの答え |
+|----------------|--------------------------|
+| 1. Learning rate / 学習率 | |
+| 2. BatchNorm | |
+| 3. Layer dimensions / 層の次元数 | |
+| 4. Loss curves / 損失曲線 | |
+| 5. Loss function / 損失関数 | |
+
+---
+
+## 8. Goal Checklist / 目標チェックリスト
 
 | Goal / 目標 | How to Verify / 確認方法 | Pass Condition / 合格条件 |
 |------------|------------------------|--------------------------|
