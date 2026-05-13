@@ -1,0 +1,31 @@
+2026-05-13 12:47:07,852 INFO    MainThread:61541 [wandb_init.py:setup_run_log_directory():723] Logging user logs to /home/goose/DL/Task3/wandb/run-20260513_124707-t3xdfzsr/logs/debug.log
+2026-05-13 12:47:07,852 INFO    MainThread:61541 [wandb_init.py:setup_run_log_directory():724] Logging internal logs to /home/goose/DL/Task3/wandb/run-20260513_124707-t3xdfzsr/logs/debug-internal.log
+2026-05-13 12:47:07,852 INFO    MainThread:61541 [wandb_init.py:monkeypatch_ipython():642] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x7fcb45c8b750>
+2026-05-13 12:47:07,853 INFO    MainThread:61541 [wandb_init.py:init():850] calling init triggers
+2026-05-13 12:47:07,853 INFO    MainThread:61541 [wandb_init.py:init():855] wandb.init called with sweep_config: {}
+config: {'model': 'GCN', 'dataset': 'Cora', 'hidden_channels': 64, 'dropout': 0.0, 'lr': 0.01, 'weight_decay': 0.0005, 'epochs': 200, '_wandb': {}}
+2026-05-13 12:47:07,853 INFO    MainThread:61541 [wandb_init.py:init():898] starting backend
+2026-05-13 12:47:07,853 INFO    MainThread:61541 [wandb_init.py:init():913] sending inform_init request
+2026-05-13 12:47:08,255 INFO    MainThread:61541 [wandb_init.py:init():918] backend started and connected
+2026-05-13 12:47:08,259 INFO    MainThread:61541 [wandb_run.py:_label_probe_notebook():1345] probe notebook
+2026-05-13 12:47:08,260 INFO    MainThread:61541 [wandb_init.py:init():988] updated telemetry
+2026-05-13 12:47:08,267 INFO    MainThread:61541 [wandb_init.py:init():1011] communicating run to backend with 90.0 second timeout
+2026-05-13 12:47:08,875 INFO    MainThread:61541 [wandb_init.py:init():1056] starting run threads in backend
+2026-05-13 12:47:08,972 INFO    MainThread:61541 [wandb_run.py:_console_start():2554] atexit reg
+2026-05-13 12:47:08,972 INFO    MainThread:61541 [wandb_run.py:_redirect():2403] redirect: wrap_raw
+2026-05-13 12:47:08,973 INFO    MainThread:61541 [wandb_run.py:_redirect():2472] Wrapping output streams.
+2026-05-13 12:47:08,973 INFO    MainThread:61541 [wandb_run.py:_redirect():2495] Redirects installed.
+2026-05-13 12:47:08,974 INFO    MainThread:61541 [wandb_init.py:init():1094] run started, returning control to user process
+2026-05-13 12:47:08,979 INFO    MainThread:61541 [wandb_init.py:_post_run_cell_hook():612] [no run ID] resuming backend
+2026-05-13 12:49:45,261 INFO    MainThread:61541 [jupyter.py:save_ipynb():362] [no run ID] not saving jupyter notebook
+2026-05-13 12:49:45,261 INFO    MainThread:61541 [wandb_init.py:_pre_run_cell_hook():601] [no run ID] pausing backend
+2026-05-13 12:49:46,202 INFO    MainThread:61541 [wandb_init.py:_post_run_cell_hook():612] [no run ID] resuming backend
+2026-05-13 12:50:44,277 INFO    MainThread:61541 [jupyter.py:save_ipynb():362] [no run ID] not saving jupyter notebook
+2026-05-13 12:50:44,277 INFO    MainThread:61541 [wandb_init.py:_pre_run_cell_hook():601] [no run ID] pausing backend
+2026-05-13 12:50:44,623 INFO    MainThread:61541 [wandb_run.py:_finish():2321] finishing run saisanka0621-ngc-lab/gnn-labs/t3xdfzsr
+2026-05-13 12:50:44,624 INFO    MainThread:61541 [jupyter.py:save_ipynb():362] not saving jupyter notebook
+2026-05-13 12:50:44,624 INFO    MainThread:61541 [wandb_init.py:_jupyter_teardown():627] cleaning up jupyter logic
+2026-05-13 12:50:44,624 INFO    MainThread:61541 [wandb_run.py:_atexit_cleanup():2520] got exitcode: 0
+2026-05-13 12:50:44,624 INFO    MainThread:61541 [wandb_run.py:_restore():2502] restore
+2026-05-13 12:50:44,624 INFO    MainThread:61541 [wandb_run.py:_restore():2508] restore done
+2026-05-13 12:50:46,065 INFO    MainThread:61541 [wandb_run.py:_footer_sync_info():3889] logging synced files

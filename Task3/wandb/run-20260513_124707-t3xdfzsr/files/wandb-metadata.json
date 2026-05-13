@@ -1,0 +1,40 @@
+{
+  "os":  "Linux-7.0.5-2-cachyos-x86_64-with-glibc2.43",
+  "python":  "CPython 3.14.4",
+  "startedAt":  "2026-05-13T03:47:07.848822Z",
+  "program":  "/home/goose/DL/Task3/DL_task3.ipynb",
+  "codePath":  "/home/goose/DL/Task3/DL_task3.ipynb",
+  "codePathLocal":  "DL_task3.ipynb",
+  "git":  {
+    "remote":  "git@github.com:goose0621/DL-NGC.git",
+    "commit":  "d4ad65e46ffac9ef99767f82a6acfe46934e519b"
+  },
+  "email":  "saisanka0621@gmail.com",
+  "root":  "/home/goose/DL/Task3",
+  "host":  "cachyos-x8664",
+  "executable":  "/home/goose/DL/.venv/bin/python",
+  "cpu_count":  14,
+  "cpu_count_logical":  20,
+  "gpu":  "NVIDIA GeForce RTX 2050",
+  "gpu_count":  1,
+  "disk":  {
+    "/":  {
+      "total":  "1023670538240",
+      "used":  "152615784448"
+    }
+  },
+  "memory":  {
+    "total":  "16364331008"
+  },
+  "gpu_nvidia":  [
+    {
+      "name":  "NVIDIA GeForce RTX 2050",
+      "memoryTotal":  "4294967296",
+      "cudaCores":  2048,
+      "architecture":  "Ampere",
+      "uuid":  "GPU-de5ff6bc-aebb-0c1b-4570-2424e2f78232"
+    }
+  ],
+  "cudaVersion":  "13.2",
+  "writerId":  "wjnenjsf237ahhfaqt8r2wklfu808nk8"
+}

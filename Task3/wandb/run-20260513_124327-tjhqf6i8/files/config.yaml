@@ -1,0 +1,69 @@
+_wandb:
+    value:
+        cli_version: 0.26.1
+        e:
+            9124qreobo3t09eaiyfsd2ugni1bavpg:
+                codePath: /home/goose/DL/Task3/DL_task3.ipynb
+                codePathLocal: DL_task3.ipynb
+                cpu_count: 14
+                cpu_count_logical: 20
+                cudaVersion: "13.2"
+                disk:
+                    /:
+                        total: "1023670538240"
+                        used: "152571641856"
+                email: saisanka0621@gmail.com
+                executable: /home/goose/DL/.venv/bin/python
+                git:
+                    commit: d4ad65e46ffac9ef99767f82a6acfe46934e519b
+                    remote: git@github.com:goose0621/DL-NGC.git
+                gpu: NVIDIA GeForce RTX 2050
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Ampere
+                      cudaCores: 2048
+                      memoryTotal: "4294967296"
+                      name: NVIDIA GeForce RTX 2050
+                      uuid: GPU-de5ff6bc-aebb-0c1b-4570-2424e2f78232
+                host: cachyos-x8664
+                memory:
+                    total: "16364331008"
+                os: Linux-7.0.5-2-cachyos-x86_64-with-glibc2.43
+                program: /home/goose/DL/Task3/DL_task3.ipynb
+                python: CPython 3.14.4
+                root: /home/goose/DL/Task3
+                startedAt: "2026-05-13T03:43:27.151208Z"
+                writerId: 9124qreobo3t09eaiyfsd2ugni1bavpg
+        m: []
+        python_version: 3.14.4
+        t:
+            "1":
+                - 1
+                - 77
+            "2":
+                - 1
+                - 77
+            "3":
+                - 2
+                - 13
+                - 16
+            "4": 3.14.4
+            "5": 0.26.1
+            "8":
+                - 1
+            "12": 0.26.1
+            "13": linux-x86_64
+dataset:
+    value: Cora
+dropout:
+    value: 0.5
+epochs:
+    value: 200
+hidden_channels:
+    value: 64
+lr:
+    value: 0.01
+model:
+    value: GCN
+weight_decay:
+    value: 0.0005

@@ -1,0 +1,11 @@
+Epoch 020 | train_loss=0.0071 train_acc=1.0000 | val_loss=0.7552 val_acc=0.7740
+Epoch 040 | train_loss=0.0029 train_acc=1.0000 | val_loss=0.8008 val_acc=0.7820
+Epoch 060 | train_loss=0.0079 train_acc=1.0000 | val_loss=0.7327 val_acc=0.7800
+Epoch 080 | train_loss=0.0079 train_acc=1.0000 | val_loss=0.7565 val_acc=0.7720
+Epoch 100 | train_loss=0.0076 train_acc=1.0000 | val_loss=0.7295 val_acc=0.7720
+Epoch 120 | train_loss=0.0069 train_acc=1.0000 | val_loss=0.7579 val_acc=0.7660
+Epoch 140 | train_loss=0.0059 train_acc=1.0000 | val_loss=0.7564 val_acc=0.7740
+Epoch 160 | train_loss=0.0059 train_acc=1.0000 | val_loss=0.7534 val_acc=0.7760
+Epoch 180 | train_loss=0.0060 train_acc=1.0000 | val_loss=0.7525 val_acc=0.7800
+Epoch 200 | train_loss=0.0054 train_acc=1.0000 | val_loss=0.7867 val_acc=0.7720
+[34m[1mwandb[0m: [32m[41mERROR[0m The nbformat package was not found. It is required to save notebook history.
